@@ -1,6 +1,3 @@
-// Catches anything thrown or rejected in a route (Express 5 forwards async
-// rejections here automatically) and turns it into a clean JSON error
-// response instead of letting the process crash.
 export function notFoundHandler(req, res) {
   res.status(404).json({
     success: false,
