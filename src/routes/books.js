@@ -12,10 +12,6 @@ import { validateBookPayload } from "../utils/validation.js";
 import { logAnalytics } from "../middleware/logger.js";
 
 const router = Router();
-
-// GET /api/books?query=clean+code
-// "Empty state" requirement: an empty result set is still a 200 with a
-// clear message, never a bare [] with no explanation and never a 404.
 router.get("/", (req, res) => {
   const { query } = req.query;
   const results = query ? searchBooks(query) : getAllBooks();
@@ -28,7 +24,6 @@ router.get("/", (req, res) => {
   });
 });
 
-// GET /api/books/:id
 router.get("/:id", (req, res) => {
   const book = getBookById(req.params.id);
 
@@ -42,9 +37,6 @@ router.get("/:id", (req, res) => {
   res.status(200).json({ success: true, data: book });
 });
 
-// POST /api/books
-// "Invalid inputs" requirement: malformed/missing fields are rejected
-// with a per-field error map instead of silently accepting bad data.
 router.post("/", (req, res) => {
   const clean = sanitizeBody(req.body ?? {});
   const { valid, errors } = validateBookPayload(clean);
@@ -69,7 +61,6 @@ router.post("/", (req, res) => {
   res.status(201).json({ success: true, data: book });
 });
 
-// PUT /api/books/:id — partial update allowed
 router.put("/:id", (req, res) => {
   const existing = getBookById(req.params.id);
   if (!existing) {
@@ -98,7 +89,6 @@ router.put("/:id", (req, res) => {
   res.status(200).json({ success: true, data: updated });
 });
 
-// DELETE /api/books/:id
 router.delete("/:id", (req, res) => {
   const removed = deleteBook(req.params.id);
 
@@ -112,5 +102,4 @@ router.delete("/:id", (req, res) => {
   logAnalytics("book_deleted", { id: req.params.id });
   res.status(200).json({ success: true, message: "Book deleted." });
 });
-
 export default router;
