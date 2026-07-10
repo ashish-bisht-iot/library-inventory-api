@@ -1,7 +1,3 @@
-// Hand-written regex/rules, mirroring the "highlight offending fields"
-// requirement from the TRD — for an API, that becomes a structured
-// field -> message error object in the JSON response instead of red borders.
-
 const ISBN_RE = /^(?:\d{9}[\dX]|\d{13})$/; // ISBN-10 or ISBN-13, digits only (hyphens stripped by caller)
 const YEAR_RE = /^(1[5-9]\d{2}|20\d{2})$/; // 1500-2099, sanity range for publication year
 
