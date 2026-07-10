@@ -1,8 +1,4 @@
 import { randomUUID } from "crypto";
-
-// In-memory store. Swappable for MongoDB/Mongoose later the same way
-// Data Hub (ENG-72399 predecessor) migrated from in-memory to Atlas —
-// this module is the only place that would need to change.
 let books = [
   {
     id: randomUUID(),
@@ -69,7 +65,6 @@ export function deleteBook(id) {
   return true;
 }
 
-// Test-only helper to reset state between runs if needed later.
 export function _resetStore(next) {
   books = next;
 }
